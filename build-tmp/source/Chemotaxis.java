@@ -20,14 +20,14 @@ Bacteria [] fans;
 Bacteria [] fans2;
 public void setup()
  {     
- 	size(640, 480);
- 	sRollins = new Bacteria (200, 200, 50);
- 	sSting = new Bacteria (400, 200, 255);
- 	fans = new Bacteria[160];
- 	fans2 = new Bacteria[160];
+ 	size(800, 600);
+ 	sRollins = new Bacteria (250, 300, 50);
+ 	sSting = new Bacteria (550, 300, 255);
+ 	fans = new Bacteria[200];
+ 	fans2 = new Bacteria[200];
  	for (int i = 0; i < fans.length; i++) {
  		fans[i] = new Bacteria (i*4, 30, 100);
- 		fans2[i] = new Bacteria (i*4, 440, 100);
+ 		fans2[i] = new Bacteria (i*4, 560, 100);
  	}
  }
 
@@ -49,23 +49,41 @@ public void draw()
 class Bacteria    
 {
 	int bacX, bacY, bacCol;
+	boolean eaten;
 	Bacteria(int x, int y, int col)
 	{
 		bacX = x;
 		bacY = y;
 		bacCol = col;
+		eaten = false;
 	}
 
 	public void move()
 	{
 		bacX += (int)(Math.random()*5)-2;
 		bacY += (int)(Math.random()*5)-2;
+		if(mousePressed){
+			if(bacX < mouseX){
+				bacX += 2;
+			}
+			else if (bacX > mouseX){
+				bacX -= 2;
+			}
+			if(bacY < mouseY){
+				bacY += 2;
+			}
+			else if (bacY > mouseY){
+				bacY -= 2;
+			}
+		}
 	}
 
 	public void show()
 	{
+		if(eaten == false){
 		fill(bacCol);
 		ellipse(bacX, bacY, 20, 20);
+		}
 	}
 }
   static public void main(String[] passedArgs) {
